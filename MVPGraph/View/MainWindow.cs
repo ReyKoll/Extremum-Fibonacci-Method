@@ -13,8 +13,6 @@ namespace MVPGraph
         {
             InitializeComponent();
             ShowDefaultTextBox();
-            rbtSin.Checked = true;
-            rbtMax.Checked = true;
         }
 
         public string TxtA { get => txtA.Text; set => txtA.Text = value; }
@@ -31,6 +29,7 @@ namespace MVPGraph
         {
             _presenter = new ExtremumPresenter(this);
             chrtGraph.Series[0].Points.Clear();
+            _presenter.IsRadioButtonChecked(this);
             _presenter.Calculate(this);
             ShowMinOrMaxTextBox();
         }
@@ -100,25 +99,27 @@ namespace MVPGraph
         {
             if (rbtMax.Checked)
             {
-                lblMaxX.Visible = true;
-                txtMaxX.Visible = true;
-                lblMaxY.Visible = true;
+                lblMaxX.Visible = 
+                txtMaxX.Visible = 
+                lblMaxY.Visible = 
                 txtMaxY.Visible = true;
-                lblMinX.Visible = false;
-                txtMinX.Visible = false;
-                lblMinY.Visible = false;
+
+                lblMinX.Visible = 
+                txtMinX.Visible = 
+                lblMinY.Visible = 
                 txtMinY.Visible = false;
             }
 
             if (rbtMin.Checked)
             {
-                lblMaxX.Visible = false;
-                txtMaxX.Visible = false;
-                lblMaxY.Visible = false;
+                lblMaxX.Visible = 
+                txtMaxX.Visible = 
+                lblMaxY.Visible = 
                 txtMaxY.Visible = false;
-                lblMinX.Visible = true;
-                txtMinX.Visible = true;
-                lblMinY.Visible = true;
+
+                lblMinX.Visible = 
+                txtMinX.Visible = 
+                lblMinY.Visible = 
                 txtMinY.Visible = true;
             }
         }

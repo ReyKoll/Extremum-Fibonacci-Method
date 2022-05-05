@@ -1,36 +1,34 @@
-﻿using System;
-using System.Windows.Forms.DataVisualization.Charting;
-using MVPGraph.Model;
+﻿using MVPGraph.Model;
 using MVPGraph.View;
+using System;
 
 namespace MVPGraph.Presenter
 {
-    class ExtremumPresenter
+    public class ExtremumPresenter
     {
         public double X { get; set; }
         public double FX { get; set; }
-        
 
         // Объект
-        Extremum extremum = new Extremum();
+        readonly Extremum extremum = new Extremum();
 
         // Экземпляр из Интерфейса
-        private readonly IExtremum _extremumView;
+        private readonly IExtremum _view;
 
         // Конструктор
         public ExtremumPresenter(IExtremum view)
         {
-            _extremumView = view;
+            _view = view;
         }
 
         // Метод связи модели и окна
         private void Update()
         {
             if (
-                _extremumView.TxtA == ""
-                || _extremumView.TxtB == ""
-                || _extremumView.TxtH == ""
-                || _extremumView.TxtEpsilon == ""
+                _view.TxtA == ""
+                || _view.TxtB == ""
+                || _view.TxtH == ""
+                || _view.TxtEpsilon == ""
                 )
             {
                 SetDefaultParams();
@@ -38,10 +36,10 @@ namespace MVPGraph.Presenter
             }
             else
             {
-                extremum.A = Convert.ToDouble(_extremumView.TxtA);
-                extremum.B = Convert.ToDouble(_extremumView.TxtB);
-                extremum.H = Convert.ToDouble(_extremumView.TxtH);
-                extremum.Epsilon = Convert.ToDouble(_extremumView.TxtEpsilon);
+                extremum.A = Convert.ToDouble(_view.TxtA);
+                extremum.B = Convert.ToDouble(_view.TxtB);
+                extremum.H = Convert.ToDouble(_view.TxtH);
+                extremum.Epsilon = Convert.ToDouble(_view.TxtEpsilon);
             }
         }
 
@@ -68,6 +66,86 @@ namespace MVPGraph.Presenter
                 System.Windows.Forms.MessageBoxIcon.Error);
         }
 
+        private void Sin(MainWindow window)
+        {
+            X = extremum.A;
+            while (X <= extremum.B)
+            {
+                FX = FMath.Function.Sin(X);
+                window.chrtGraph.Series[0].Points.AddXY(X, FX);
+                X += extremum.H;
+                var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
+                var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
+                var xValueMax = dataPointMax.XValue;
+                var xValueMin = dataPointMin.XValue;
+                _view.TxtMaxX = xValueMax.ToString("0.00");
+                _view.TxtMinX = xValueMin.ToString("0.00");
+                _view.TxtMaxY = extremum.Max(FMath.Function.Sin).ToString("0.00");
+                _view.TxtMinY = extremum.Min(FMath.Function.Sin).ToString("0.00");
+            }
+            _view.TxtFX = extremum.Find(FMath.Function.Sin).ToString("0.0000");
+        }
+
+        private void Cos(MainWindow window)
+        {
+            X = extremum.A;
+            while (X <= extremum.B)
+            {
+                FX = FMath.Function.Cos(X);
+                window.chrtGraph.Series[0].Points.AddXY(X, FX);
+                X += extremum.H;
+                var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
+                var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
+                var xValueMax = dataPointMax.XValue;
+                var xValueMin = dataPointMin.XValue;
+                _view.TxtMaxX = xValueMax.ToString("0.00");
+                _view.TxtMinX = xValueMin.ToString("0.00");
+                _view.TxtMaxY = extremum.Max(FMath.Function.Cos).ToString("0.00");
+                _view.TxtMinY = extremum.Min(FMath.Function.Cos).ToString("0.00");
+            }
+            _view.TxtFX = extremum.Find(FMath.Function.Cos).ToString("0.0000");
+        }
+
+        private void Parabola(MainWindow window)
+        {
+            X = extremum.A;
+            while (X <= extremum.B)
+            {
+                FX = FMath.Function.Parabola(X);
+                window.chrtGraph.Series[0].Points.AddXY(X, FX);
+                X += extremum.H;
+                var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
+                var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
+                var xValueMax = dataPointMax.XValue;
+                var xValueMin = dataPointMin.XValue;
+                _view.TxtMaxX = xValueMax.ToString("0.00");
+                _view.TxtMinX = xValueMin.ToString("0.00");
+                _view.TxtMaxY = extremum.Max(FMath.Function.Parabola).ToString("0.00");
+                _view.TxtMinY = extremum.Min(FMath.Function.Parabola).ToString("0.00");
+            }
+            _view.TxtFX = extremum.Find(FMath.Function.Parabola).ToString("0.0000");
+        }
+
+        private void Line(MainWindow window)
+        {
+            X = extremum.A;
+            while (X <= extremum.B)
+            {
+                FX = FMath.Function.Line(X);
+                window.chrtGraph.Series[0].Points.AddXY(X, FX);
+                X += extremum.H;
+                var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
+                var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
+                var xValueMax = dataPointMax.XValue;
+                var xValueMin = dataPointMin.XValue;
+                _view.TxtMaxX = xValueMax.ToString("0.00");
+                _view.TxtMinX = xValueMin.ToString("0.00");
+                _view.TxtMaxY = extremum.Max(FMath.Function.Line).ToString("0.00");
+                _view.TxtMinY = extremum.Min(FMath.Function.Line).ToString("0.00");
+            }
+            _view.TxtFX = extremum.Find(FMath.Function.Line).ToString("0.0000");
+        }
+
         // Метод расчета функций
         public void Calculate(MainWindow window)
         {
@@ -75,87 +153,18 @@ namespace MVPGraph.Presenter
             ShowInvalidEnterError();
 
             if (window.rbtSin.Checked)
-            {
-                X = extremum.A;
-                while (X <= extremum.B)
-                {
-                    FX = FMath.Function.Sin(X);
-                    window.chrtGraph.Series[0].Points.AddXY(X, FX);
-                    X += extremum.H;
-                    var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
-                    var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
-                    var xValueMax = dataPointMax.XValue;
-                    var xValueMin = dataPointMin.XValue;
-                    _extremumView.TxtMaxX = xValueMax.ToString("0.00");
-                    _extremumView.TxtMinX = xValueMin.ToString("0.00");
-                    _extremumView.TxtMaxY = extremum.Max(FMath.Function.Sin).ToString("0.00");
-                    _extremumView.TxtMinY = extremum.Min(FMath.Function.Sin).ToString("0.00");
-                }
-                _extremumView.TxtFX = extremum.Find(FMath.Function.Sin).ToString("0.0000");
-            }
+                Sin(window);
 
             if (window.rbtCos.Checked)
-            {
-                X = extremum.A;
-                while (X <= extremum.B)
-                {
-                    FX = FMath.Function.Cos(X);
-                    window.chrtGraph.Series[0].Points.AddXY(X, FX);
-                    X += extremum.H;
-                    var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
-                    var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
-                    var xValueMax = dataPointMax.XValue;
-                    var xValueMin = dataPointMin.XValue;
-                    _extremumView.TxtMaxX = xValueMax.ToString("0.00");
-                    _extremumView.TxtMinX = xValueMin.ToString("0.00");
-                    _extremumView.TxtMaxY = extremum.Max(FMath.Function.Cos).ToString("0.00");
-                    _extremumView.TxtMinY = extremum.Min(FMath.Function.Cos).ToString("0.00");
-                }
-                _extremumView.TxtFX = extremum.Find(FMath.Function.Cos).ToString("0.0000");
-            }
+                Cos(window);
 
             if (window.rbtParabola.Checked)
-            {
-                X = extremum.A;
-                while (X <= extremum.B)
-                {
-                    FX = FMath.Function.Parabola(X);
-                    window.chrtGraph.Series[0].Points.AddXY(X, FX);
-                    X += extremum.H;
-                    var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
-                    var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
-                    var xValueMax = dataPointMax.XValue;
-                    var xValueMin = dataPointMin.XValue;
-                    _extremumView.TxtMaxX = xValueMax.ToString("0.00");
-                    _extremumView.TxtMinX = xValueMin.ToString("0.00");
-                    _extremumView.TxtMaxY = extremum.Max(FMath.Function.Parabola).ToString("0.00");
-                    _extremumView.TxtMinY = extremum.Min(FMath.Function.Parabola).ToString("0.00");
-                }
-                _extremumView.TxtFX = extremum.Find(FMath.Function.Parabola).ToString("0.0000");
-
-            }
+                Parabola(window);
 
             if (window.rbtLine.Checked)
-            {
-                X = extremum.A;
-                while (X <= extremum.B)
-                {
-                    FX = FMath.Function.Line(X);
-                    window.chrtGraph.Series[0].Points.AddXY(X, FX);
-                    X += extremum.H;
-                    var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
-                    var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
-                    var xValueMax = dataPointMax.XValue;
-                    var xValueMin = dataPointMin.XValue;
-                    _extremumView.TxtMaxX = xValueMax.ToString("0.00");
-                    _extremumView.TxtMinX = xValueMin.ToString("0.00");
-                    _extremumView.TxtMaxY = extremum.Max(FMath.Function.Line).ToString("0.00");
-                    _extremumView.TxtMinY = extremum.Min(FMath.Function.Line).ToString("0.00");
-                }
-                _extremumView.TxtFX = extremum.Find(FMath.Function.Line).ToString("0.0000");
-            }
+                Line(window);
         }
-        /*
+
         public bool IsRadioButtonChecked(MainWindow window)
         {
             if (
@@ -175,14 +184,19 @@ namespace MVPGraph.Presenter
                 window.rbtMax.Checked = true;
             }
             return true;
-        }*/
+        }
 
         public void AnyTextBoxEmpty()
         {
-            _extremumView.TxtA = _extremumView.TxtB
-            = _extremumView.TxtH = _extremumView.TxtEpsilon
-            = _extremumView.TxtFX = _extremumView.TxtMaxY = _extremumView.TxtMinY
-            = _extremumView.TxtMaxX = _extremumView.TxtMinX = string.Empty;
-        } 
+            _view.TxtA =
+            _view.TxtB =
+            _view.TxtH =
+            _view.TxtEpsilon =
+            _view.TxtFX =
+            _view.TxtMaxY =
+            _view.TxtMinY =
+            _view.TxtMaxX =
+            _view.TxtMinX = string.Empty;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MVPGraph.View
 {
-    interface IExtremum
+    public interface IExtremum
     {
         string TxtA { get; set; }
         string TxtB { get; set; }
