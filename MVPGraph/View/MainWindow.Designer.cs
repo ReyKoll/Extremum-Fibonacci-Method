@@ -80,11 +80,11 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxGraph.AutoSize = true;
             this.groupBoxGraph.Controls.Add(this.chrtGraph);
-            this.groupBoxGraph.Location = new System.Drawing.Point(213, 12);
-            this.groupBoxGraph.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.groupBoxGraph.Location = new System.Drawing.Point(284, 15);
+            this.groupBoxGraph.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBoxGraph.Name = "groupBoxGraph";
-            this.groupBoxGraph.Padding = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.groupBoxGraph.Size = new System.Drawing.Size(804, 466);
+            this.groupBoxGraph.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.groupBoxGraph.Size = new System.Drawing.Size(1072, 574);
             this.groupBoxGraph.TabIndex = 0;
             this.groupBoxGraph.TabStop = false;
             this.groupBoxGraph.Text = "График функции";
@@ -103,8 +103,8 @@ namespace MVPGraph
             legend1.Enabled = false;
             legend1.Name = "Legend";
             this.chrtGraph.Legends.Add(legend1);
-            this.chrtGraph.Location = new System.Drawing.Point(6, 19);
-            this.chrtGraph.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.chrtGraph.Location = new System.Drawing.Point(8, 23);
+            this.chrtGraph.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.chrtGraph.Name = "chrtGraph";
             series1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Center;
             series1.BorderWidth = 3;
@@ -121,7 +121,7 @@ namespace MVPGraph
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
             this.chrtGraph.Series.Add(series1);
-            this.chrtGraph.Size = new System.Drawing.Size(792, 441);
+            this.chrtGraph.Size = new System.Drawing.Size(1056, 543);
             this.chrtGraph.TabIndex = 0;
             this.chrtGraph.Text = "chart";
             // 
@@ -136,11 +136,11 @@ namespace MVPGraph
             this.groupBoxSettings.Controls.Add(this.txtEpsilon);
             this.groupBoxSettings.Controls.Add(this.txtB);
             this.groupBoxSettings.Controls.Add(this.txtA);
-            this.groupBoxSettings.Location = new System.Drawing.Point(8, 204);
-            this.groupBoxSettings.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.groupBoxSettings.Location = new System.Drawing.Point(11, 251);
+            this.groupBoxSettings.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.groupBoxSettings.Name = "groupBoxSettings";
-            this.groupBoxSettings.Padding = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.groupBoxSettings.Size = new System.Drawing.Size(200, 263);
+            this.groupBoxSettings.Padding = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.groupBoxSettings.Size = new System.Drawing.Size(267, 324);
             this.groupBoxSettings.TabIndex = 1;
             this.groupBoxSettings.TabStop = false;
             this.groupBoxSettings.Text = "Интервал функции";
@@ -152,10 +152,9 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEpsilon.AutoSize = true;
             this.lblEpsilon.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.lblEpsilon.Location = new System.Drawing.Point(45, 183);
-            this.lblEpsilon.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEpsilon.Location = new System.Drawing.Point(60, 225);
             this.lblEpsilon.Name = "lblEpsilon";
-            this.lblEpsilon.Size = new System.Drawing.Size(109, 21);
+            this.lblEpsilon.Size = new System.Drawing.Size(135, 27);
             this.lblEpsilon.TabIndex = 7;
             this.lblEpsilon.Text = "ε (точность)";
             // 
@@ -166,10 +165,9 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblB.AutoSize = true;
             this.lblB.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.lblB.Location = new System.Drawing.Point(64, 102);
-            this.lblB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblB.Location = new System.Drawing.Point(85, 126);
             this.lblB.Name = "lblB";
-            this.lblB.Size = new System.Drawing.Size(64, 21);
+            this.lblB.Size = new System.Drawing.Size(80, 27);
             this.lblB.TabIndex = 5;
             this.lblB.Text = "B (до) ";
             // 
@@ -180,10 +178,9 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblA.AutoSize = true;
             this.lblA.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.lblA.Location = new System.Drawing.Point(64, 30);
-            this.lblA.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblA.Location = new System.Drawing.Point(85, 37);
             this.lblA.Name = "lblA";
-            this.lblA.Size = new System.Drawing.Size(62, 21);
+            this.lblA.Size = new System.Drawing.Size(78, 27);
             this.lblA.TabIndex = 4;
             this.lblA.Text = "A (от) ";
             // 
@@ -193,14 +190,15 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEpsilon.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtEpsilon.Location = new System.Drawing.Point(49, 206);
-            this.txtEpsilon.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtEpsilon.Location = new System.Drawing.Point(65, 254);
+            this.txtEpsilon.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtEpsilon.Name = "txtEpsilon";
-            this.txtEpsilon.Size = new System.Drawing.Size(100, 29);
+            this.txtEpsilon.Size = new System.Drawing.Size(132, 35);
             this.txtEpsilon.TabIndex = 3;
-            this.txtEpsilon.Tag = "0.001";
+            this.txtEpsilon.Tag = "0,001";
             this.txtEpsilon.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtEpsilon.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtEpsilon_KeyPress);
+            this.txtEpsilon.Leave += new System.EventHandler(this.IntervalParameters_BoxLeave);
             // 
             // txtB
             // 
@@ -208,14 +206,15 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtB.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtB.Location = new System.Drawing.Point(49, 126);
-            this.txtB.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtB.Location = new System.Drawing.Point(65, 155);
+            this.txtB.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtB.Name = "txtB";
-            this.txtB.Size = new System.Drawing.Size(100, 29);
+            this.txtB.Size = new System.Drawing.Size(132, 35);
             this.txtB.TabIndex = 1;
             this.txtB.Tag = "10";
             this.txtB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtB_KeyPress);
+            this.txtB.Leave += new System.EventHandler(this.IntervalParameters_BoxLeave);
             // 
             // txtA
             // 
@@ -223,14 +222,15 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtA.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtA.Location = new System.Drawing.Point(49, 54);
-            this.txtA.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtA.Location = new System.Drawing.Point(65, 66);
+            this.txtA.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtA.Name = "txtA";
-            this.txtA.Size = new System.Drawing.Size(100, 29);
+            this.txtA.Size = new System.Drawing.Size(132, 35);
             this.txtA.TabIndex = 0;
             this.txtA.Tag = "-10";
             this.txtA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtA_KeyPress);
+            this.txtA.Leave += new System.EventHandler(this.IntervalParameters_BoxLeave);
             // 
             // lblH
             // 
@@ -239,10 +239,9 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblH.AutoSize = true;
             this.lblH.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.lblH.Location = new System.Drawing.Point(64, 16);
-            this.lblH.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblH.Location = new System.Drawing.Point(85, 20);
             this.lblH.Name = "lblH";
-            this.lblH.Size = new System.Drawing.Size(71, 21);
+            this.lblH.Size = new System.Drawing.Size(91, 27);
             this.lblH.TabIndex = 6;
             this.lblH.Text = "h (шаг) ";
             // 
@@ -252,14 +251,15 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtH.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtH.Location = new System.Drawing.Point(49, 41);
-            this.txtH.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtH.Location = new System.Drawing.Point(65, 50);
+            this.txtH.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtH.Name = "txtH";
-            this.txtH.Size = new System.Drawing.Size(100, 29);
+            this.txtH.Size = new System.Drawing.Size(132, 35);
             this.txtH.TabIndex = 2;
-            this.txtH.Tag = "0.1";
+            this.txtH.Tag = "0,1";
             this.txtH.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtH.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtH_KeyPress);
+            this.txtH.Leave += new System.EventHandler(this.IntervalParameters_BoxLeave);
             // 
             // groupBoxFunc
             // 
@@ -270,9 +270,11 @@ namespace MVPGraph
             this.groupBoxFunc.Controls.Add(this.rbtParabola);
             this.groupBoxFunc.Controls.Add(this.rbtCos);
             this.groupBoxFunc.Controls.Add(this.rbtSin);
-            this.groupBoxFunc.Location = new System.Drawing.Point(8, 12);
+            this.groupBoxFunc.Location = new System.Drawing.Point(11, 15);
+            this.groupBoxFunc.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxFunc.Name = "groupBoxFunc";
-            this.groupBoxFunc.Size = new System.Drawing.Size(200, 108);
+            this.groupBoxFunc.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxFunc.Size = new System.Drawing.Size(267, 133);
             this.groupBoxFunc.TabIndex = 2;
             this.groupBoxFunc.TabStop = false;
             this.groupBoxFunc.Text = "Выбор функции";
@@ -286,9 +288,10 @@ namespace MVPGraph
             this.rbtLine.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rbtLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.rbtLine.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rbtLine.Location = new System.Drawing.Point(112, 76);
+            this.rbtLine.Location = new System.Drawing.Point(149, 94);
+            this.rbtLine.Margin = new System.Windows.Forms.Padding(4);
             this.rbtLine.Name = "rbtLine";
-            this.rbtLine.Size = new System.Drawing.Size(69, 20);
+            this.rbtLine.Size = new System.Drawing.Size(91, 24);
             this.rbtLine.TabIndex = 3;
             this.rbtLine.TabStop = true;
             this.rbtLine.Text = "y = x - 2";
@@ -303,9 +306,10 @@ namespace MVPGraph
             this.rbtParabola.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rbtParabola.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.rbtParabola.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rbtParabola.Location = new System.Drawing.Point(16, 76);
+            this.rbtParabola.Location = new System.Drawing.Point(21, 94);
+            this.rbtParabola.Margin = new System.Windows.Forms.Padding(4);
             this.rbtParabola.Name = "rbtParabola";
-            this.rbtParabola.Size = new System.Drawing.Size(86, 20);
+            this.rbtParabola.Size = new System.Drawing.Size(115, 24);
             this.rbtParabola.TabIndex = 2;
             this.rbtParabola.TabStop = true;
             this.rbtParabola.Text = "y = x * x - 4";
@@ -320,9 +324,10 @@ namespace MVPGraph
             this.rbtCos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rbtCos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.rbtCos.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.rbtCos.Location = new System.Drawing.Point(112, 28);
+            this.rbtCos.Location = new System.Drawing.Point(149, 34);
+            this.rbtCos.Margin = new System.Windows.Forms.Padding(4);
             this.rbtCos.Name = "rbtCos";
-            this.rbtCos.Size = new System.Drawing.Size(84, 20);
+            this.rbtCos.Size = new System.Drawing.Size(108, 24);
             this.rbtCos.TabIndex = 1;
             this.rbtCos.TabStop = true;
             this.rbtCos.Text = "y = Cos(x)";
@@ -336,9 +341,10 @@ namespace MVPGraph
             this.rbtSin.AutoSize = true;
             this.rbtSin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rbtSin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.rbtSin.Location = new System.Drawing.Point(16, 28);
+            this.rbtSin.Location = new System.Drawing.Point(21, 34);
+            this.rbtSin.Margin = new System.Windows.Forms.Padding(4);
             this.rbtSin.Name = "rbtSin";
-            this.rbtSin.Size = new System.Drawing.Size(79, 20);
+            this.rbtSin.Size = new System.Drawing.Size(102, 24);
             this.rbtSin.TabIndex = 0;
             this.rbtSin.TabStop = true;
             this.rbtSin.Text = "y = Sin(x)";
@@ -353,9 +359,10 @@ namespace MVPGraph
             this.btDraw.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btDraw.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btDraw.Location = new System.Drawing.Point(213, 490);
+            this.btDraw.Location = new System.Drawing.Point(284, 603);
+            this.btDraw.Margin = new System.Windows.Forms.Padding(4);
             this.btDraw.Name = "btDraw";
-            this.btDraw.Size = new System.Drawing.Size(120, 62);
+            this.btDraw.Size = new System.Drawing.Size(160, 76);
             this.btDraw.TabIndex = 3;
             this.btDraw.Text = "Построить";
             this.btDraw.UseVisualStyleBackColor = false;
@@ -370,9 +377,10 @@ namespace MVPGraph
             this.BtnClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.BtnClear.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BtnClear.Location = new System.Drawing.Point(358, 500);
+            this.BtnClear.Location = new System.Drawing.Point(477, 615);
+            this.BtnClear.Margin = new System.Windows.Forms.Padding(4);
             this.BtnClear.Name = "BtnClear";
-            this.BtnClear.Size = new System.Drawing.Size(88, 40);
+            this.BtnClear.Size = new System.Drawing.Size(117, 49);
             this.BtnClear.TabIndex = 4;
             this.BtnClear.Text = "Очистить";
             this.BtnClear.UseVisualStyleBackColor = false;
@@ -384,11 +392,11 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMaxX.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtMaxX.Location = new System.Drawing.Point(494, 507);
-            this.txtMaxX.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtMaxX.Location = new System.Drawing.Point(659, 624);
+            this.txtMaxX.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtMaxX.Name = "txtMaxX";
             this.txtMaxX.ReadOnly = true;
-            this.txtMaxX.Size = new System.Drawing.Size(144, 29);
+            this.txtMaxX.Size = new System.Drawing.Size(191, 35);
             this.txtMaxX.TabIndex = 9;
             this.txtMaxX.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -398,11 +406,11 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFX.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtFX.Location = new System.Drawing.Point(862, 506);
-            this.txtFX.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtFX.Location = new System.Drawing.Point(1149, 623);
+            this.txtFX.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtFX.Name = "txtFX";
             this.txtFX.ReadOnly = true;
-            this.txtFX.Size = new System.Drawing.Size(144, 29);
+            this.txtFX.Size = new System.Drawing.Size(191, 35);
             this.txtFX.TabIndex = 10;
             this.txtFX.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -412,11 +420,11 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMaxY.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtMaxY.Location = new System.Drawing.Point(655, 506);
-            this.txtMaxY.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtMaxY.Location = new System.Drawing.Point(873, 623);
+            this.txtMaxY.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtMaxY.Name = "txtMaxY";
             this.txtMaxY.ReadOnly = true;
-            this.txtMaxY.Size = new System.Drawing.Size(144, 29);
+            this.txtMaxY.Size = new System.Drawing.Size(191, 35);
             this.txtMaxY.TabIndex = 11;
             this.txtMaxY.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -426,11 +434,11 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMinY.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtMinY.Location = new System.Drawing.Point(655, 506);
-            this.txtMinY.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtMinY.Location = new System.Drawing.Point(873, 623);
+            this.txtMinY.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtMinY.Name = "txtMinY";
             this.txtMinY.ReadOnly = true;
-            this.txtMinY.Size = new System.Drawing.Size(144, 29);
+            this.txtMinY.Size = new System.Drawing.Size(191, 35);
             this.txtMinY.TabIndex = 12;
             this.txtMinY.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -442,10 +450,9 @@ namespace MVPGraph
             this.lblMaxX.AutoSize = true;
             this.lblMaxX.Font = new System.Drawing.Font("Times New Roman", 14.25F);
             this.lblMaxX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMaxX.Location = new System.Drawing.Point(535, 482);
-            this.lblMaxX.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMaxX.Location = new System.Drawing.Point(713, 593);
             this.lblMaxX.Name = "lblMaxX";
-            this.lblMaxX.Size = new System.Drawing.Size(61, 21);
+            this.lblMaxX.Size = new System.Drawing.Size(79, 27);
             this.lblMaxX.TabIndex = 9;
             this.lblMaxX.Text = "Max X";
             // 
@@ -457,10 +464,9 @@ namespace MVPGraph
             this.lblFX.AutoSize = true;
             this.lblFX.Font = new System.Drawing.Font("Times New Roman", 14.25F);
             this.lblFX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblFX.Location = new System.Drawing.Point(914, 482);
-            this.lblFX.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFX.Location = new System.Drawing.Point(1219, 593);
             this.lblFX.Name = "lblFX";
-            this.lblFX.Size = new System.Drawing.Size(42, 21);
+            this.lblFX.Size = new System.Drawing.Size(53, 27);
             this.lblFX.TabIndex = 13;
             this.lblFX.Text = "F(x)";
             // 
@@ -472,10 +478,9 @@ namespace MVPGraph
             this.lblMaxY.AutoSize = true;
             this.lblMaxY.Font = new System.Drawing.Font("Times New Roman", 14.25F);
             this.lblMaxY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMaxY.Location = new System.Drawing.Point(701, 482);
-            this.lblMaxY.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMaxY.Location = new System.Drawing.Point(935, 593);
             this.lblMaxY.Name = "lblMaxY";
-            this.lblMaxY.Size = new System.Drawing.Size(60, 21);
+            this.lblMaxY.Size = new System.Drawing.Size(78, 27);
             this.lblMaxY.TabIndex = 14;
             this.lblMaxY.Text = "Max Y";
             // 
@@ -487,10 +492,9 @@ namespace MVPGraph
             this.lblMinY.AutoSize = true;
             this.lblMinY.Font = new System.Drawing.Font("Times New Roman", 14.25F);
             this.lblMinY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMinY.Location = new System.Drawing.Point(701, 482);
-            this.lblMinY.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMinY.Location = new System.Drawing.Point(935, 593);
             this.lblMinY.Name = "lblMinY";
-            this.lblMinY.Size = new System.Drawing.Size(56, 21);
+            this.lblMinY.Size = new System.Drawing.Size(73, 27);
             this.lblMinY.TabIndex = 15;
             this.lblMinY.Text = "Min Y";
             // 
@@ -498,9 +502,10 @@ namespace MVPGraph
             // 
             this.rbtMax.AutoSize = true;
             this.rbtMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtMax.Location = new System.Drawing.Point(44, 19);
+            this.rbtMax.Location = new System.Drawing.Point(59, 23);
+            this.rbtMax.Margin = new System.Windows.Forms.Padding(4);
             this.rbtMax.Name = "rbtMax";
-            this.rbtMax.Size = new System.Drawing.Size(51, 20);
+            this.rbtMax.Size = new System.Drawing.Size(61, 24);
             this.rbtMax.TabIndex = 16;
             this.rbtMax.TabStop = true;
             this.rbtMax.Text = "Max";
@@ -510,9 +515,10 @@ namespace MVPGraph
             // 
             this.rbtMin.AutoSize = true;
             this.rbtMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtMin.Location = new System.Drawing.Point(101, 19);
+            this.rbtMin.Location = new System.Drawing.Point(135, 23);
+            this.rbtMin.Margin = new System.Windows.Forms.Padding(4);
             this.rbtMin.Name = "rbtMin";
-            this.rbtMin.Size = new System.Drawing.Size(47, 20);
+            this.rbtMin.Size = new System.Drawing.Size(57, 24);
             this.rbtMin.TabIndex = 17;
             this.rbtMin.TabStop = true;
             this.rbtMin.Text = "Min";
@@ -522,9 +528,11 @@ namespace MVPGraph
             // 
             this.groupBoxH.Controls.Add(this.lblH);
             this.groupBoxH.Controls.Add(this.txtH);
-            this.groupBoxH.Location = new System.Drawing.Point(8, 474);
+            this.groupBoxH.Location = new System.Drawing.Point(11, 583);
+            this.groupBoxH.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxH.Name = "groupBoxH";
-            this.groupBoxH.Size = new System.Drawing.Size(200, 91);
+            this.groupBoxH.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxH.Size = new System.Drawing.Size(267, 112);
             this.groupBoxH.TabIndex = 16;
             this.groupBoxH.TabStop = false;
             this.groupBoxH.Text = "Настройки графика";
@@ -533,9 +541,11 @@ namespace MVPGraph
             // 
             this.groupBoxMinMax.Controls.Add(this.rbtMax);
             this.groupBoxMinMax.Controls.Add(this.rbtMin);
-            this.groupBoxMinMax.Location = new System.Drawing.Point(8, 126);
+            this.groupBoxMinMax.Location = new System.Drawing.Point(11, 155);
+            this.groupBoxMinMax.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxMinMax.Name = "groupBoxMinMax";
-            this.groupBoxMinMax.Size = new System.Drawing.Size(200, 53);
+            this.groupBoxMinMax.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxMinMax.Size = new System.Drawing.Size(267, 65);
             this.groupBoxMinMax.TabIndex = 18;
             this.groupBoxMinMax.TabStop = false;
             // 
@@ -547,10 +557,9 @@ namespace MVPGraph
             this.lblMinX.AutoSize = true;
             this.lblMinX.Font = new System.Drawing.Font("Times New Roman", 14.25F);
             this.lblMinX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMinX.Location = new System.Drawing.Point(535, 482);
-            this.lblMinX.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMinX.Location = new System.Drawing.Point(713, 593);
             this.lblMinX.Name = "lblMinX";
-            this.lblMinX.Size = new System.Drawing.Size(57, 21);
+            this.lblMinX.Size = new System.Drawing.Size(74, 27);
             this.lblMinX.TabIndex = 20;
             this.lblMinX.Text = "Min X";
             // 
@@ -560,20 +569,20 @@ namespace MVPGraph
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMinX.Font = new System.Drawing.Font("Times New Roman", 14.25F);
-            this.txtMinX.Location = new System.Drawing.Point(494, 507);
-            this.txtMinX.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.txtMinX.Location = new System.Drawing.Point(659, 624);
+            this.txtMinX.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.txtMinX.Name = "txtMinX";
             this.txtMinX.ReadOnly = true;
-            this.txtMinX.Size = new System.Drawing.Size(144, 29);
+            this.txtMinX.Size = new System.Drawing.Size(191, 35);
             this.txtMinX.TabIndex = 21;
             this.txtMinX.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1028, 577);
+            this.ClientSize = new System.Drawing.Size(1371, 710);
             this.Controls.Add(this.txtMinX);
             this.Controls.Add(this.lblMinX);
             this.Controls.Add(this.groupBoxMinMax);
@@ -592,7 +601,7 @@ namespace MVPGraph
             this.Controls.Add(this.groupBoxSettings);
             this.Controls.Add(this.groupBoxGraph);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

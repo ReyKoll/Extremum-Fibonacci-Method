@@ -30,7 +30,7 @@ namespace MVPGraph
             _presenter = new ExtremumPresenter(this);
             chrtGraph.Series[0].Points.Clear();
             _presenter.IsRadioButtonChecked(this);
-            _presenter.Calculate(this);
+            _presenter.Show(this);
             ShowMinOrMaxTextBox();
         }
 
@@ -97,30 +97,24 @@ namespace MVPGraph
 
         private void ShowMinOrMaxTextBox()
         {
-            if (rbtMax.Checked)
+            lblMaxX.Visible =
+            txtMaxX.Visible =
+            lblMaxY.Visible =
+            txtMaxY.Visible = rbtMax.Checked;
+
+            lblMinX.Visible =
+            txtMinX.Visible =
+            lblMinY.Visible =
+            txtMinY.Visible = rbtMin.Checked;
+        }
+
+        private void IntervalParameters_BoxLeave(object sender, EventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            if (box.Text == "")
             {
-                lblMaxX.Visible = 
-                txtMaxX.Visible = 
-                lblMaxY.Visible = 
-                txtMaxY.Visible = true;
-
-                lblMinX.Visible = 
-                txtMinX.Visible = 
-                lblMinY.Visible = 
-                txtMinY.Visible = false;
-            }
-
-            if (rbtMin.Checked)
-            {
-                lblMaxX.Visible = 
-                txtMaxX.Visible = 
-                lblMaxY.Visible = 
-                txtMaxY.Visible = false;
-
-                lblMinX.Visible = 
-                txtMinX.Visible = 
-                lblMinY.Visible = 
-                txtMinY.Visible = true;
+                ShowDefaultTextBox();
+                _presenter.ShowDefaultParamsMessage();
             }
         }
     }
