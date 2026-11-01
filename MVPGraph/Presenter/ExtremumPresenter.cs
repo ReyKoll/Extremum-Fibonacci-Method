@@ -1,192 +1,77 @@
-﻿using MVPGraph.Model;
-using MVPGraph.View;
 using System;
+using MVPGraph.Model;
+using MVPGraph.View;
 
 namespace MVPGraph.Presenter
 {
+    /// <summary>
+    /// Презентер: читает параметры из вью, считает через модель, пишет результаты обратно.
+    /// Не зависит ни от WinForms, ни от Avalonia — только от IExtremumView.
+    /// </summary>
     public class ExtremumPresenter
     {
-        public double X { get; set; }
-        public double FX { get; set; }
+        private const double DefaultA = -10.0;
+        private const double DefaultB = 10.0;
+        private const double DefaultH = 0.1;
+        private const double DefaultEpsilon = 0.001;
 
-        // Объект
-        readonly Extremum extremum = new Extremum();
+        private readonly IExtremumView _view;
 
-        // Экземпляр из Интерфейса
-        private readonly IExtremum _view;
+        public ExtremumPresenter(IExtremumView view) => _view = view;
 
-        // Конструктор
-        public ExtremumPresenter(IExtremum view)
+        /// <summary>
+        /// Единственный метод расчёта: раньше было 4 копипаста (Sin/Cos/Parabola/Line),
+        /// отличавшихся только функцией. Min/max вычисляются за один проход по сетке,
+        /// а не O(n^2) вызовов FindMax/FindMin на каждую добавленную точку.
+        /// </summary>
+        public void Calculate(Func<double, double> f, ExtremumMode mode, Action<string> warn)
         {
-            _view = view;
-        }
+            var extremum = ReadParameters(warn);
+            if (extremum == null) return;
 
-        // Метод связи модели и окна
-        private void Update()
-        {
-            if (
-                _view.TxtA == ""
-                || _view.TxtB == ""
-                || _view.TxtH == ""
-                || _view.TxtEpsilon == ""
-                )
+            if (extremum.B == extremum.A)
             {
-                SetDefaultParams();
-                ShowDefaultParamsMessage();
+                warn("Точки A и B совпадают — использован интервал по умолчанию [−10; 10]");
+                extremum.A = DefaultA;
+                extremum.B = DefaultB;
             }
-            else
+            else if (extremum.B < extremum.A)
             {
-                extremum.A = Convert.ToDouble(_view.TxtA);
-                extremum.B = Convert.ToDouble(_view.TxtB);
-                extremum.H = Convert.ToDouble(_view.TxtH);
-                extremum.Epsilon = Convert.ToDouble(_view.TxtEpsilon);
+                warn("Точка B меньше точки A — границы интервала поменены местами");
+                (extremum.A, extremum.B) = (extremum.B, extremum.A);
             }
-        }
 
-        private void SetDefaultParams()
-        {
-            extremum.A = -10.0;
-            extremum.B = 10.0;
-            extremum.H = 0.1;
-            extremum.Epsilon = 0.001;
-        }
+            if (extremum.H > extremum.B - extremum.A)
+                warn("Шаг H больше длины интервала — min/max вычислены по единственной точке");
 
-        private void ShowDefaultParamsMessage()
-        {
-            System.Windows.Forms.MessageBox.Show("A = -10, B = 10, Шаг = 0.1, Точность = 0.001", "Внимание",
-            System.Windows.Forms.MessageBoxButtons.OK,
-            System.Windows.Forms.MessageBoxIcon.Exclamation);
-        }
+            if (extremum.Epsilon > extremum.B - extremum.A)
+                warn("Точность ε больше длины интервала — результат будет очень грубым");
 
-        private void ShowInvalidEnterError()
-        {
-            if (extremum.B <= extremum.A)
-                System.Windows.Forms.MessageBox.Show("Точка B не может быть меньше или равной точке А", "Ошибка",
-                System.Windows.Forms.MessageBoxButtons.OK,
-                System.Windows.Forms.MessageBoxIcon.Error);
-        }
-
-        private void Sin(MainWindow window)
-        {
-            X = extremum.A;
-            while (X <= extremum.B)
+            // Ни одно исключение модели не должно ронять приложение —
+            // нормальный график важнее падения. Ошибку показываем в статусе.
+            try
             {
-                FX = FMath.Function.Sin(X);
-                window.chrtGraph.Series[0].Points.AddXY(X, FX);
-                X += extremum.H;
-                var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
-                var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
-                var xValueMax = dataPointMax.XValue;
-                var xValueMin = dataPointMin.XValue;
-                _view.TxtMaxX = xValueMax.ToString("0.00");
-                _view.TxtMinX = xValueMin.ToString("0.00");
-                _view.TxtMaxY = extremum.Max(FMath.Function.Sin).ToString("0.00");
-                _view.TxtMinY = extremum.Min(FMath.Function.Sin).ToString("0.00");
-            }
-            _view.TxtFX = extremum.Find(FMath.Function.Sin).ToString("0.0000");
-        }
+                _view.TxtFX = (mode == ExtremumMode.Minimum
+                    ? extremum.FindMinimum(f)
+                    : extremum.FindMaximum(f)).ToString("0.0000");
 
-        private void Cos(MainWindow window)
-        {
-            X = extremum.A;
-            while (X <= extremum.B)
+                var (minY, maxY, minX, maxX) = extremum.FindBounds(f);
+                _view.TxtMinY = minY.ToString("0.00");
+                _view.TxtMaxY = maxY.ToString("0.00");
+                _view.TxtMinX = minX.ToString("0.00");
+                _view.TxtMaxX = maxX.ToString("0.00");
+
+                // Отрисовка НЕ зависит от шага H: фиксированное число точек,
+                // чтобы кривая была гладкой при любом (даже грубом) шаге расчёта min/max
+                _view.ShowChart(SampleSmooth(f, extremum.A, extremum.B));
+            }
+            catch (Exception ex)
             {
-                FX = FMath.Function.Cos(X);
-                window.chrtGraph.Series[0].Points.AddXY(X, FX);
-                X += extremum.H;
-                var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
-                var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
-                var xValueMax = dataPointMax.XValue;
-                var xValueMin = dataPointMin.XValue;
-                _view.TxtMaxX = xValueMax.ToString("0.00");
-                _view.TxtMinX = xValueMin.ToString("0.00");
-                _view.TxtMaxY = extremum.Max(FMath.Function.Cos).ToString("0.00");
-                _view.TxtMinY = extremum.Min(FMath.Function.Cos).ToString("0.00");
+                warn("Ошибка расчёта: " + ex.Message);
             }
-            _view.TxtFX = extremum.Find(FMath.Function.Cos).ToString("0.0000");
         }
 
-        private void Parabola(MainWindow window)
-        {
-            X = extremum.A;
-            while (X <= extremum.B)
-            {
-                FX = FMath.Function.Parabola(X);
-                window.chrtGraph.Series[0].Points.AddXY(X, FX);
-                X += extremum.H;
-                var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
-                var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
-                var xValueMax = dataPointMax.XValue;
-                var xValueMin = dataPointMin.XValue;
-                _view.TxtMaxX = xValueMax.ToString("0.00");
-                _view.TxtMinX = xValueMin.ToString("0.00");
-                _view.TxtMaxY = extremum.Max(FMath.Function.Parabola).ToString("0.00");
-                _view.TxtMinY = extremum.Min(FMath.Function.Parabola).ToString("0.00");
-            }
-            _view.TxtFX = extremum.Find(FMath.Function.Parabola).ToString("0.0000");
-        }
-
-        private void Line(MainWindow window)
-        {
-            X = extremum.A;
-            while (X <= extremum.B)
-            {
-                FX = FMath.Function.Line(X);
-                window.chrtGraph.Series[0].Points.AddXY(X, FX);
-                X += extremum.H;
-                var dataPointMax = window.chrtGraph.Series[0].Points.FindMaxByValue();
-                var dataPointMin = window.chrtGraph.Series[0].Points.FindMinByValue();
-                var xValueMax = dataPointMax.XValue;
-                var xValueMin = dataPointMin.XValue;
-                _view.TxtMaxX = xValueMax.ToString("0.00");
-                _view.TxtMinX = xValueMin.ToString("0.00");
-                _view.TxtMaxY = extremum.Max(FMath.Function.Line).ToString("0.00");
-                _view.TxtMinY = extremum.Min(FMath.Function.Line).ToString("0.00");
-            }
-            _view.TxtFX = extremum.Find(FMath.Function.Line).ToString("0.0000");
-        }
-
-        // Метод расчета функций
-        public void Calculate(MainWindow window)
-        {
-            Update();
-            ShowInvalidEnterError();
-
-            if (window.rbtSin.Checked)
-                Sin(window);
-
-            if (window.rbtCos.Checked)
-                Cos(window);
-
-            if (window.rbtParabola.Checked)
-                Parabola(window);
-
-            if (window.rbtLine.Checked)
-                Line(window);
-        }
-
-        public bool IsRadioButtonChecked(MainWindow window)
-        {
-            if (
-                window.rbtSin.Checked == false
-                && window.rbtCos.Checked == false
-                && window.rbtParabola.Checked == false
-                && window.rbtLine.Checked == false
-                && window.rbtMax.Checked == false
-                && window.rbtMin.Checked == false
-                )
-            {
-                System.Windows.Forms.MessageBox.Show("По умолчанию выбрана функция Sin(x)", "Внимание",
-                System.Windows.Forms.MessageBoxButtons.OK,
-                System.Windows.Forms.MessageBoxIcon.Exclamation);
-
-                window.rbtSin.Checked = true;
-                window.rbtMax.Checked = true;
-            }
-            return true;
-        }
-
-        public void AnyTextBoxEmpty()
+        public void Clear()
         {
             _view.TxtA =
             _view.TxtB =
@@ -197,6 +82,51 @@ namespace MVPGraph.Presenter
             _view.TxtMinY =
             _view.TxtMaxX =
             _view.TxtMinX = string.Empty;
+        }
+
+        /// <summary>Разбор параметров; пустые поля заменяются дефолтами (как в оригинале).</summary>
+        private Extremum ReadParameters(Action<string> warn)
+        {
+            double a = ParseOr(_view.TxtA, DefaultA, out bool aDefault);
+            double b = ParseOr(_view.TxtB, DefaultB, out bool bDefault);
+            double h = ParseOr(_view.TxtH, DefaultH, out bool hDefault);
+            double eps = ParseOr(_view.TxtEpsilon, DefaultEpsilon, out bool eDefault);
+
+            if (aDefault || bDefault || hDefault || eDefault)
+                warn($"Незаполненные поля заменены значениями по умолчанию:\nA = {DefaultA}, B = {DefaultB}, шаг = {DefaultH}, точность = {DefaultEpsilon}");
+
+            if (h <= 0) { warn("Шаг H должен быть положительным — установлен 0.1"); h = DefaultH; }
+            if (eps <= 0) { warn("Точность должна быть положительной — установлена 0.001"); eps = DefaultEpsilon; }
+
+            return new Extremum { A = a, B = b, H = h, Epsilon = eps };
+        }
+
+        private static double ParseOr(string text, double fallback, out bool usedDefault)
+        {
+            if (double.TryParse((text ?? "").Trim().Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture,
+                    out double value))
+            {
+                usedDefault = false;
+                return value;
+            }
+            usedDefault = true;
+            return fallback;
+        }
+
+        /// <summary>Равномерная выборка функции: 1001 точка на [a, b] —
+        /// гладкая кривая независимо от пользовательского шага H.</summary>
+        private static double[] SampleSmooth(Func<double, double> f, double a, double b)
+        {
+            const int count = 1001; // нечётный запас: 1000 сегментов (+1 точка)
+            var pts = new double[2 * count];
+            double step = (b - a) / (count - 1);
+            for (int i = 0; i < count; i++)
+            {
+                double x = a + i * step;
+                pts[2 * i] = x;
+                pts[2 * i + 1] = f(x);
+            }
+            return pts;
         }
     }
 }

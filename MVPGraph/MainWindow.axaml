@@ -1,0 +1,133 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="using:MVPGraph.View"
+        x:Class="MVPGraph.MainWindow"
+        Title="Поиск экстремума методом Фибоначчи"
+        Width="1024" Height="720"
+        MinWidth="800" MinHeight="500"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Заголовок: кнопка скрытия/показа панели + название -->
+        <DockPanel Grid.Row="0" Margin="8,8,8,0">
+            <ToggleButton x:Name="PaneToggle" DockPanel.Dock="Left"
+                         Width="40" Height="40" Padding="0"
+                         CornerRadius="4"
+                         IsChecked="{Binding #Split.IsPaneOpen, Mode=TwoWay}"
+                         ToolTip.Tip="Скрыть/показать панель параметров">
+                <PathIcon Data="M 0 5 H 24 M 0 12 H 24 M 0 19 H 24"
+                          Width="24" Height="24" />
+            </ToggleButton>
+            <TextBlock Text="Поиск экстремума методом Фибоначчи"
+                       FontSize="16" FontWeight="Bold"
+                       VerticalAlignment="Center" Margin="12,0,0,0" />
+        </DockPanel>
+
+        <SplitView x:Name="Split" Grid.Row="1"
+                   DisplayMode="CompactInline"
+                   OpenPaneLength="340"
+                   CompactPaneLength="0"
+                   IsPaneOpen="True"
+                   Margin="8">
+
+            <!-- Панель: без скролла, компактная вёрстка — всё fits always -->
+            <SplitView.Pane>
+                <Grid RowDefinitions="Auto, Auto, Auto, *, Auto"
+                      Margin="10,8,10,8">
+
+                    <!-- Параметры: сетка 2x2 -->
+                    <Grid Grid.Row="0" RowDefinitions="Auto, Auto" ColumnDefinitions="*, 12, *">
+                        <StackPanel Grid.Row="0" Grid.Column="0" Spacing="2" Margin="0,0,0,8">
+                            <TextBlock Text="Точка A" />
+                            <TextBox x:Name="TxtA" Text="-10" Watermark="A" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Spacing="2" Margin="0,0,0,8">
+                            <TextBlock Text="Точка B" />
+                            <TextBox x:Name="TxtB" Text="10" Watermark="B" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="0" Spacing="2" Margin="0,0,0,8">
+                            <TextBlock Text="Шаг H" />
+                            <TextBox x:Name="TxtH" Text="0.1" Watermark="0.1" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Spacing="2" Margin="0,0,0,8">
+                            <TextBlock Text="Точность ε" />
+                            <TextBox x:Name="TxtEpsilon" Text="0.001" Watermark="0.001" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Функция: один Grid = одна группа радиокнопок -->
+                    <StackPanel Grid.Row="1" Spacing="4">
+                        <TextBlock Text="Функция" FontWeight="Bold" />
+                        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, *">
+                            <RadioButton x:Name="RbSin" Grid.Row="0" Grid.Column="0" Content="y = Sin(x)" IsChecked="True" />
+                            <RadioButton x:Name="RbCos" Grid.Row="0" Grid.Column="1" Content="y = Cos(x)" />
+                            <RadioButton x:Name="RbParabola" Grid.Row="1" Grid.Column="0" Content="y = x² − 4" />
+                            <RadioButton x:Name="RbLine" Grid.Row="1" Grid.Column="1" Content="y = x − 2" />
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Искать: 2 колонки -->
+                    <StackPanel Grid.Row="2" Spacing="4" Margin="0,8,0,0">
+                        <TextBlock Text="Искать" FontWeight="Bold" />
+                        <Grid ColumnDefinitions="*, *">
+                            <RadioButton x:Name="RbMin" Content="Минимум" IsChecked="True" />
+                            <RadioButton x:Name="RbMax" Grid.Column="1" Content="Максимум" />
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Кнопки: центральная зона, крупные, растянуты по ней -->
+                    <Grid Grid.Row="3" ColumnDefinitions="*, 10, *"
+                          VerticalAlignment="Stretch" Margin="0,14,0,14">
+                        <Button x:Name="BtnDraw" Grid.Column="0" Content="Построить график"
+                                Click="OnDrawClick" Height="48" FontSize="15"
+                                VerticalAlignment="Stretch"
+                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                        <Button x:Name="BtnClear" Grid.Column="2" Content="Очистить"
+                                Click="OnClearClick" Height="48" FontSize="15"
+                                VerticalAlignment="Stretch"
+                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                    </Grid>
+
+                    <!-- Результаты: внизу панели -->
+                    <Border Grid.Row="4" Padding="0,10,0,0"
+                            BorderBrush="LightGray" BorderThickness="0,1,0,0"
+                            VerticalAlignment="Stretch">
+                        <StackPanel Spacing="6" VerticalAlignment="Bottom">
+                            <TextBlock Text="Результаты" FontWeight="Bold" />
+
+                            <TextBlock Text="x экстремума (метод Фибоначчи)" />
+                            <TextBox x:Name="TxtFX" IsReadOnly="True" />
+
+                            <TextBlock Text="Минимум: x / y" />
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBox x:Name="TxtMinX" Grid.Column="0" IsReadOnly="True" Margin="0,0,4,0" />
+                                <TextBox x:Name="TxtMinY" Grid.Column="1" IsReadOnly="True" Margin="4,0,0,0" />
+                            </Grid>
+
+                            <TextBlock Text="Максимум: x / y" />
+                            <Grid ColumnDefinitions="*, *">
+                                <TextBox x:Name="TxtMaxX" Grid.Column="0" IsReadOnly="True" Margin="0,0,4,0" />
+                                <TextBox x:Name="TxtMaxY" Grid.Column="1" IsReadOnly="True" Margin="4,0,0,0" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </SplitView.Pane>
+
+            <!-- График -->
+            <SplitView.Content>
+                <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="4">
+                    <v:FunctionChart x:Name="Chart" />
+                </Border>
+            </SplitView.Content>
+        </SplitView>
+
+        <!-- Статус-бар: появляется ТОЛЬКО когда есть сообщение -->
+        <Border x:Name="StatusBar" Grid.Row="2" Background="#FFF7F0" Padding="10,6"
+                BorderBrush="OrangeRed" BorderThickness="0,1,0,0" MinHeight="34"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#B20404"
+                       FontSize="12" VerticalAlignment="Center" />
+        </Border>
+    </Grid>
+</Window>
